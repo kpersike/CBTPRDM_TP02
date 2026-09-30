@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TarefasApp.TarefaDetailsPage"
+             Title="Detalhes da Tarefa"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray950}}">
+
+    <!-- Botão de voltar limpo na barra superior -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Voltar" Clicked="OnBackClicked" Priority="0" Order="Primary" />
+    </ContentPage.ToolbarItems>
+
+    <!-- ScrollView garante que a tela funcione bem em dispositivos menores ou com descrições longas -->
+    <ScrollView>
+        <VerticalStackLayout Spacing="24" Padding="20">
+
+            <!-- Cartão Principal de Conteúdo -->
+            <Frame CornerRadius="16" 
+                   Padding="24" 
+                   HasShadow="True" 
+                   BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}">
+                <VerticalStackLayout Spacing="16">
+
+                    <!-- Título -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Título da Tarefa" 
+                               FontSize="12" 
+                               TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+                        <Label Text="{Binding Titulo}" 
+                               FontSize="22" 
+                               FontAttributes="Bold" 
+                               TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
+                    </VerticalStackLayout>
+
+                    <!-- Divisor sutil -->
+                    <BoxView HeightRequest="1" 
+                             Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray800}}" />
+
+                    <!-- Descrição -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Descrição" 
+                               FontSize="12" 
+                               TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+                        <Label Text="{Binding Descricao}" 
+                               FontSize="15" 
+                               LineBreakMode="WordWrap"
+                               TextColor="{AppThemeBinding Light={StaticResource Gray700}, Dark={StaticResource Gray300}}" />
+                    </VerticalStackLayout>
+
+                    <!-- Divisor sutil -->
+                    <BoxView HeightRequest="1" 
+                             Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray800}}" />
+
+                    <!-- Grid de Informações (Data e Prioridade lado a lado) -->
+                    <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+
+                        <!-- Data de Criação -->
+                        <VerticalStackLayout Grid.Column="0" Spacing="4">
+                            <Label Text="Data de Criação" 
+                                   FontSize="12" 
+                                   TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+                            <Label Text="{Binding DataCriacao, StringFormat='{0:dd/MM/yyyy}'}" 
+                                   FontSize="14" 
+                                   FontAttributes="Bold" 
+                                   TextColor="{AppThemeBinding Light={StaticResource Gray800}, Dark={StaticResource Gray200}}" />
+                        </VerticalStackLayout>
+
+                        <!-- Prioridade (com um visual de Badge/Tag) -->
+                        <VerticalStackLayout Grid.Column="1" Spacing="4" HorizontalOptions="End">
+                            <Label Text="Prioridade" 
+                                   FontSize="12" 
+                                   HorizontalOptions="End"
+                                   TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+                            <Frame Padding="10,4" 
+                                   CornerRadius="8" 
+                                   BackgroundColor="#FFEB3B" 
+                                   HasShadow="False"
+                                   HorizontalOptions="End">
+                                <Label Text="{Binding Prioridade}" 
+                                       FontSize="12" 
+                                       FontAttributes="Bold" 
+                                       TextColor="{StaticResource Gray900}" />
+                            </Frame>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Botões de Ação Inferiores -->
+            <VerticalStackLayout Spacing="12">
+                <Button Text="Editar Tarefa" 
+                        Clicked="OnEditClicked" 
+                        HeightRequest="48"
+                        CornerRadius="10"
+                        FontAttributes="Bold" />
+
+                <Button Text="Excluir Tarefa" 
+                        Clicked="OnDeleteClicked" 
+                        TextColor="White" 
+                        BackgroundColor="#D9534F" 
+                        HeightRequest="48"
+                        CornerRadius="10"
+                        FontAttributes="Bold" />
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

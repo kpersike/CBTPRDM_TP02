@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Nome: Kaik Persike Maiorquino
+Prontuário: CB3029689
+
+Nome: Luiz Gustavo Verissimo Monteiro
+Prontuário: CB3030326
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:TarefasApp"
+             x:Class="TarefasApp.MainPage"
+             Title="Lista de Tarefas"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray950}}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Adicionar" Clicked="OnAddClicked" />
+    </ContentPage.ToolbarItems>
+
+    <!-- Grid principal -->
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <!-- Cabeçalho subtil -->
+        <Label Grid.Row="0" 
+               FontSize="16" 
+               FontAttributes="Bold" 
+               Margin="20,16,20,8"
+               TextColor="{AppThemeBinding Light={StaticResource Gray700}, Dark={StaticResource Gray300}}" />
+
+        <!-- Lista de Tarefas -->
+        <CollectionView Grid.Row="1" 
+                        ItemsSource="{Binding Tarefas}" 
+                        SelectionMode="Single" 
+                        SelectionChanged="OnSelectionChanged"
+                        Margin="16,0,16,8">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Tarefa">
+                    <Frame Margin="0" 
+                           CornerRadius="12" 
+                           HasShadow="True" 
+                           Padding="16" 
+                           BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray50}, Dark={StaticResource Gray800}}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid ColumnDefinitions="*, Auto" 
+                              RowDefinitions="Auto, Auto" 
+                              ColumnSpacing="12" 
+                              RowSpacing="6">
+
+                            <!-- Título da Tarefa -->
+                            <Label Grid.Row="0" Grid.Column="0" 
+                                   Text="{Binding Titulo}" 
+                                   FontAttributes="Bold" 
+                                   FontSize="16" 
+                                   TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"/>
+
+                            <!-- Badge de Prioridade -->
+                            <Frame Grid.Row="0" Grid.Column="1" 
+                                   Padding="8,3" 
+                                   CornerRadius="6" 
+                                   BackgroundColor="#FFEB3B" 
+                                   HasShadow="False"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="End">
+                                <Label Text="{Binding Prioridade}" 
+                                       FontAttributes="Bold" 
+                                       FontSize="11" 
+                                       TextColor="{StaticResource Gray900}" />
+                            </Frame>
+
+                            <!-- Descrição -->
+                            <Label Grid.Row="1" Grid.Column="0" 
+                                   Text="{Binding Descricao}" 
+                                   FontSize="13" 
+                                   LineBreakMode="TailTruncation" 
+                                   MaxLines="2" 
+                                   TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+
+                            <!-- Data de Criação -->
+                            <Label Grid.Row="1" Grid.Column="1" 
+                                   Text="{Binding DataCriacao, StringFormat='{0:dd/MM/yyyy}'}" 
+                                   FontSize="12" 
+                                   VerticalOptions="End"
+                                   HorizontalOptions="End"
+                                   TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Rodapé -->
+        <VerticalStackLayout Grid.Row="2" 
+                               HorizontalOptions="Center" 
+                               Spacing="8" 
+                               Margin="16,10,16,12">
+
+            <Label Text="Desenvolvedores" 
+                   FontSize="12" 
+                   FontAttributes="Bold" 
+                   TextColor="{AppThemeBinding Light={StaticResource Gray700}, Dark={StaticResource Gray300}}" />
+
+            <Label Text="Kaik Persike Maiorquino - CB3029689" 
+                   FontSize="12" 
+                   TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+
+            <Label Text="Luiz Gustavo Verissimo Monteiro - CB3030326" 
+                   FontSize="12" 
+                   TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
